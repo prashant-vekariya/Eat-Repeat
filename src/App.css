@@ -1,38 +1,80 @@
-.App {
-  text-align: center;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+*{  
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.container{
+  width: 1140px;
+  margin: 0 auto;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.Inspiration{
+  font-family: 'Inspiration';
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.header-icon:focus{
+  background-color: #85c226;
 }
 
-.App-link {
-  color: #61dafb;
+.nav-menu:focus{
+  color: #fac122;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.main-bg-color{
+  background-color: #ca0808;
 }
+
+.main-bg-color:hover{
+  background-color: #85c226;
+}
+
+.header-button{
+  padding: 12px 22px;
+  background-color: #ca0808;
+  font-size: 0.886em;
+  border-radius: 20px;
+}
+
+
+
+.slider-button{
+  padding: 18px 25px;
+  background-color: #fac122;
+  font-size: 0.886em;
+  border-radius: 12px;
+}
+
+.yellow-main{
+  color: #fac122;
+}
+
+.homeslider{
+  height: 900px;
+  width: 100%;
+  background-image: url(../public/Image/slider.jpg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.otherslider{
+  height: 50vh;
+  width: 100%;
+  background-image: url(../public/Image/slider.jpg);
+  padding:50px 0;
+  background-position: top;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+table,tr,td,th{
+  border:1px solid #aeaeae;
+  padding: 40px;
+} 
