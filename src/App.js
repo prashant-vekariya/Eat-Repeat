@@ -13,6 +13,8 @@ import AllCategories from './Container/Allcategories/AllCategories';
 import Productadd from './Admin/Container/ProductAdd/Productadd';
 import ProductaReadMore from './Container/ProductaReadMore/ProductaReadMore';
 import AllProduct from './Container/AllProduct/AllProduct';
+import Checkout from './Container/Checkout/Checkout';
+import Placeorder from './Container/PlaceOrder/Placeorder';
 
 
 function App() {
@@ -31,6 +33,8 @@ function App() {
               <Route exact path={"/addproduct"} component={Productadd}/>
               <Route exact path={"/productReadmore"} component={ProductaReadMore}/>
               <Route exact path={"/allproductpageination"} component={AllProduct}/>
+              <Route exact path={"/checkout"} component={Checkout}/>
+              <Route exact path={"/placeorder"} component={Placeorder}/>
             </Switch>
           </PersistGate>
         </Provider>

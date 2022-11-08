@@ -74,6 +74,9 @@
   background-size: cover;
 }
 
+table{
+  width: 100%;
+}
 table,tr,td,th{
   border:1px solid #aeaeae;
   padding: 40px;

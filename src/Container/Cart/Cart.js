@@ -1,19 +1,50 @@
 import React, { useEffect } from 'react';
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getproductactiondata } from '../../Redux/Action/addProduct.action';
-import { cartgetdataaction } from '../../Redux/Action/cart.action';
+import { cartgetdataaction, decrementcounter, deletedataaction, incrementcounter } from '../../Redux/Action/cart.action';
+import ClearIcon from '@mui/icons-material/Clear';
+import { useHistory } from 'react-router-dom';
 
 function Cart(props) {
 
 
-    const cartdata = useSelector(state => state.cart)
+    const cartdata = useSelector(state => state.cartRe)
     const cart = cartdata.cart
-    console.log(cart)
+    // console.log(cart)
 
     const productdata = useSelector(state => state.product)
     const product = productdata.product
-    console.log(product)
-    
+    // console.log(product)
+
+
+    const productfilter = []
+
+    cart.map(c => (product.map((p) => {
+        if (p.id === c.id) {
+            const data = {
+                ...p,
+                quantity: c.quantity
+            }
+            productfilter.push(data)
+        }
+    })))
+
+    // SubTotal..................................
+
+    const subtotal = []
+
+    productfilter.map((c) => (
+        subtotal.push(c.Price * c.quantity)
+    ))
+    // console.log(subtotal)
+
+    let subtotalsum = subtotal.reduce(function (a, b) {
+        return a + b;
+    }, 0);
+
+
+    // UseEffect..................................
 
     const dispatch = useDispatch()
 
@@ -22,6 +53,35 @@ function Cart(props) {
         dispatch(cartgetdataaction())
     }, [])
 
+
+
+    // Counter..................................
+
+
+    function handleincrement(id) {
+        // console.log(id);
+        dispatch(incrementcounter(id));
+    }
+
+    const handledecrement = (id) => {
+        // console.log(id)
+        dispatch(decrementcounter(id))
+    }
+
+    const handledelete = (id) => {
+        dispatch(deletedataaction(id))
+    }
+
+    const history = useHistory()
+
+    const handleCheckout = () => {
+
+        const finalcart = {
+            productfilter,
+            subtotalsum
+        }
+        history.push('/checkout',finalcart)
+    }
 
     return (
         <>
@@ -37,64 +97,74 @@ function Cart(props) {
                     <div>
                         <h2 className='text-4xl font-medium text-red-600 my-6'>Your Cart</h2>
                     </div>
-                    <form>
-                        <div>
-                            <table>
-                                <thead>
-                                    <tr className='text-red-600'>
-                                        <th>Images</th>
-                                        <th>Product</th>
-                                        <th>Unit Price</th>
-                                        <th>Quantity</th>
-                                        <th>Total</th>
-                                        <th>Remove</th>
-                                    </tr>
-                                </thead>
-                                {
-                                    cart.map((C) => (
-                                        <tbody>
-                                            <tr>
-                                                <td>
-                                                    <a href="">
-                                                        <img src="assets/img/shop/product/product-2.jpg" alt='' />
-                                                    </a>
-                                                </td>
-                                                <td className="">
-                                                    <a href=""></a>
-                                                </td>
-                                                <td className="">
-                                                    <span className="">$130.00</span>
-                                                </td>
-                                                <td className="">
-                                                    <div className="text-center">
-                                                        <input type="text" className='w-14 text-center border-2 p-3' defaultValue={1} />
+                    <div>
+                        <table>
+                            <thead>
+                                <tr className='text-red-600'>
+                                    <th>Images</th>
+                                    <th>Product</th>
+                                    <th>Unit Price</th>
+                                    <th>Quantity</th>
+                                    <th>Total</th>
+                                    <th>Remove</th>
+                                </tr>
+                            </thead>
+                            {
+                                productfilter.map((C) => (
+
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <a href="">
+                                                    <img src={C.file} alt='' width={70} />
+                                                </a>
+                                            </td>
+                                            <td className="">
+                                                <a href="">{C.Name}</a>
+                                            </td>
+                                            <td className="">
+                                                <span className="">${C.Price}</span>
+                                            </td>
+                                            <td className="">
+                                                <div className="text-center">
+                                                    <div className='flex justify-center'>
+                                                        <button onClick={() => handleincrement(C.id)} className='border-2 px-4'>+</button>
+                                                        <p className='border-2 px-4'>{C.quantity}</p>
+                                                        <button disabled={C.quantity === 1 && true} onClick={() => handledecrement(C.id)} className='border-2 px-4'>-</button>
                                                     </div>
-                                                </td>
-                                                <td className="">
-                                                    <span className="">$130.00</span>
-                                                </td>
-                                                <td className="">
-                                                    <a href="">*</a>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    ))
-                                }
-                            </table>
-                        </div>
-                        {/* <div className="row">
-                            <div className="col-md-5 ml-auto">
-                                <div className="cart-page-total">
-                                    <h2>Cart totals</h2>
-                                    <ul className="mb-20">
-                                        <li>Subtotal <span>$250.00</span></li>
-                                        <li>Total <span>$250.00</span></li>
-                                    </ul>
-                                    <a className="os-btn" href="checkout.html">Proceed to checkout</a>
+                                                </div>
+                                            </td>
+                                            <td className="">
+                                                <span className="">${C.Price * C.quantity}</span>
+                                            </td>
+                                            <td className="">
+                                                <button onClick={() => handledelete(C.id)}><ClearIcon /></button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                ))
+                            }
+                        </table>
+                    </div>
+                    <div className='mt-9'>
+                        <div className="flex justify-end">
+                            <div className="w-5/12 py-4 px-9 border-2">
+                                <h2 className='text-2xl font-medium text-red-600'>Cart Totals</h2>
+                                <div className="mt-4 flex justify-between">
+                                    <div className='text-xl font-semibold'>Subtotal</div>
+                                    <div>${subtotalsum}</div>
+                                </div>
+                                <div className='border-t-2 my-2'></div>
+                                <div className="flex justify-between">
+                                    <div className='text-xl font-semibold'>Total<span className='text-xs'>(+20% Delivery charge)</span></div>
+                                    <div>${subtotalsum + subtotalsum * 20 / 100}</div>
                                 </div>
                             </div>
-                        </div> */}
-                    </form>
+                        </div>
+                        <div className='flex justify-end'>
+                            <button className="header-button mt-3 text-white font-semibold" onClick={()=>{handleCheckout()}}>Proceed to checkout</button>
+                        </div>
+                    </div>
                 </div>
             </section>
         </>

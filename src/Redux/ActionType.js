@@ -28,7 +28,18 @@ export const PHONENUMBERLOGIN_USER = "PHONENUMBERLOGIN_USER"
 
 export const CART_ADD_DATA = 'CART_ADD_DATA'
 export const CART_GET_DATA = 'CART_GET_DATA'
+export const DELETE_CART_DATA = 'DELETE_CART_DATA'
+
+// CHEACKOUT
+
+export const CHEACKOUT_POST = 'CHEACKOUT_POST'
+export const CHEACKOUT_GET = 'CHEACKOUT_GET'
 
 // Alert
 export const SET_ALERT = 'SET_ALERT'
 export const RESET_ALERT = 'RESET_ALERT'
+
+//counter
+
+export const INCREMENT_VALUE = 'INCREMENT_VALUE'
+export const DECREMENT_VALUE = 'DECREMENT_VALUE'

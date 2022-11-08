@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import EmailIcon from '@mui/icons-material/Email';
 import PhoneIcon from '@mui/icons-material/Phone';
 import Notistackalert from '../NotistackAlert/Notistackalert';
 import { useSelector, useDispatch } from 'react-redux';
@@ -57,7 +57,7 @@ function Header(props) {
                             </li>
                             <li>
                                 <NavLink exact to={"/cart"} className=''>
-                                    <ShoppingCartIcon className='yellow-main' /><span>0 Items</span> - <span>$0.00</span>
+                                    <EmailIcon className='yellow-main' /><span>pizza@gmail.com</span>
                                 </NavLink>
                             </li>
                             <li>

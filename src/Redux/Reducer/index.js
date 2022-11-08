@@ -10,5 +10,5 @@ export const rootReducer = combineReducers({
     auth:authReducer,
     alert:alertReducer,
     categories:addcategories,
-    cart:cartReducer
+    cartRe:cartReducer,
 })
